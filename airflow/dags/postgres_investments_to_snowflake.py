@@ -10,7 +10,7 @@ from typing import Dict, Optional
 
 import sys
 sys.path.append('/opt/airflow/dags/config')
-from tables_config import tables_config, batch_size
+from tables.investments_config import tables_config, batch_size
 
 logger = logging.getLogger(__name__)
 
@@ -112,7 +112,7 @@ def load_to_snowflake(
     """)
 
     sf_hook.run(f"""
-    CREATE OR REPLACE TABLE {staging_table} (
+    CREATE OR REPLACE TABLE {snowflake_database}.{snowflake_schema}.{staging_table} (
         {', '.join(column_definitions)}
     )
     """)
@@ -122,6 +122,10 @@ def load_to_snowflake(
     TYPE = PARQUET
     """)
 
+    sf_hook.run("""
+        REMOVE @MICROHOUSE_RAW.PUBLIC.RAW_STAGE;
+    """)
+
     sf_hook.run(f"""
     PUT file://{parquet_path}
     @MICROHOUSE_RAW.PUBLIC.RAW_STAGE
@@ -129,11 +133,12 @@ def load_to_snowflake(
     """)
 
     sf_hook.run(f"""
-    COPY INTO {staging_table}
+    COPY INTO {snowflake_database}.{snowflake_schema}.{staging_table}
     FROM @MICROHOUSE_RAW.PUBLIC.RAW_STAGE
     FILE_FORMAT = (FORMAT_NAME = MICROHOUSE_RAW.PUBLIC.parquet_format)
     MATCH_BY_COLUMN_NAME = CASE_INSENSITIVE
     ON_ERROR = 'CONTINUE'
+    PURGE = TRUE
     """)
 
     if load_type == 'full':
@@ -183,11 +188,11 @@ def create_transfer_task_group(table_config: Dict) -> TaskGroup:
 
 
 with DAG(
-    'postgres_to_snowflake_transfer',
+    'postgres_investments_to_snowflake',
     default_args=default_args,
-    description='Transfer data from PostgreSQL to Snowflake',
+    description='Transfer investments data from PostgreSQL to Snowflake',
     catchup=False,
-    tags=['postgres', 'snowflake', 'etl'],
+    tags=['postgres', 'snowflake', 'elt'],
 ) as dag:
 
     for table_config in tables_config:
