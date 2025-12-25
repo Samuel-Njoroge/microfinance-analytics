@@ -1,25 +1,23 @@
 {{
     config(
-        materialized="view",
+        materialized='table',
         tags=['weekly']
     )
 }}
 
-WITH all_users AS (
-    SELECT
-        id AS user_id,
-        user_name,
-        first_name,
-        last_name,
-        email,
-        phone,
-        is_active,
-        is_staff,
-        date_joined,
-        last_login
-    FROM microfinance.public.users_user
-)
-
 SELECT
-    *
-FROM all_users
+    id AS user_id,
+    username,
+    first_name,
+    last_name,
+    email,
+    phone,
+    is_active,
+    is_staff,
+    date_joined,
+    last_login,
+    password,
+    is_superuser,
+    role,
+    is_verified
+FROM microhouse_raw.public.users_user
