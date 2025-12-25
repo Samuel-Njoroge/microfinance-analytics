@@ -1,0 +1,83 @@
+version: 2
+
+sources:
+  - name: microhouse_raw
+    description: "Raw data from Finhouse system"
+    database: microhouse_raw
+    schema: public
+    tables:
+      - name: accounts
+        description: "Account information"
+        columns:
+          - name: account_id
+            description: "Unique account identifier"
+            tests:
+              - unique
+              - not_null
+          - name: date_updated
+            description: "Last update timestamp"
+      - name: account_types
+        description: "Account Type information"
+        columns:
+          - name: account_type_id
+            description: "Unique account type identifier"
+      - name: investments
+        description: "Investments information"
+        columns:
+          - name: investment_id
+            description: "Unique investment identifier"
+      - name: investment_products
+        description: "Investment Products information"
+        columns:
+          - name: investment_product_id
+            description: "Unique investment product identifier"
+      - name: investment_earnings
+        description: "Investments Earnings information"
+        columns:
+          - name: investment_earning_id
+            description: "Unique investment earning identifier"
+      - name: loans
+        description: "Loans information"
+        columns:
+          - name: loan_id
+            description: "Unique loan identifier"
+      - name: loan_products
+        description: "Loans Products information"
+        columns:
+          - name: loan_product_id
+            description: "Unique loan product identifier"
+      - name: loan_collaterals
+        description: "Loans Collateral information"
+        columns:
+          - name: loan_collateral_id
+            description: "Unique loan collateral identifier"
+      - name: loan_repayments
+        description: "Loans Repayment information"
+        columns:
+          - name: loan_repayment_id
+            description: "Unique loan repayment identifier"
+      - name: payments
+        description: "Payment information"
+        columns:
+          - name: payment_id
+            description: "Unique payment identifier"
+      - name: transactions
+        description: "Transaction information"
+        columns:
+          - name: transaction_id
+            description: "Unique transaction identifier"
+      - name: transaction_types
+        description: "Transaction Type information"
+        columns:
+          - name: transaction_type_id
+            description: "Unique transaction type identifier"
+      - name: transfers
+        description: "Transfers information"
+        columns:
+          - name: transfer_id
+            description: "Unique transfer identifier"
+      - name: users_user
+        description: "User information"
+        columns:
+          - name: id
+            description: "Unique user identifier"
