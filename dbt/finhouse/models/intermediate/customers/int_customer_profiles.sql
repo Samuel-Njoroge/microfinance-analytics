@@ -53,7 +53,8 @@ SELECT
     u.role,
     u.date_joined,
     u.last_login,
-    
+    DATEDIFF(day, date_joined, CURRENT_DATE) as days_as_customer,
+
     -- Account metrics
     COALESCE(ca.total_accounts, 0) AS total_accounts,
     COALESCE(ca.total_account_balance, 0) AS total_account_balance,
