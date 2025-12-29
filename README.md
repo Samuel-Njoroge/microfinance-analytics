@@ -18,40 +18,7 @@ The platform follows **modern analytics engineering best practices**, separating
 
 ## 2. High-Level Architecture
 
-```
-┌───────────────────────────┐
-│   Django Backend (OLTP)   │
-│    + Postgres database    │
-└───────────────┬───────────┘
-                │
-        Airflow Orchestrates
-                │
-                ▼
-┌──────────────────────────────────┐
-│   Airflow Extract DAGs           │
-│   - Read from Postgres OLTP      │
-│   - Load into Snowflake RAW      │
-└──────────────────┬───────────────┘
-                   │
-                   ▼
-      Snowflake RAW ("bronze") Layer
-                   │
-                   ▼
-┌──────────────────────────────────┐
-│        dbt Transformations       │
-│   staging → intermediate → marts │
-└──────────────────┬───────────────┘
-                   │
-                   ▼
- Snowflake Marts ("gold") Analytics Layer
-                   │
-                   ▼
-┌──────────────────────────────────┐
-│ Apache Superset                  │
-│ - Dashboards                     │
-│ - Metrics & Exploration          │
-└──────────────────────────────────┘
-```
+![architecture](./superset/assets/data-architecture.svg)
 
 ---
 
