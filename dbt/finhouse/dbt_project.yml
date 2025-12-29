@@ -17,8 +17,8 @@ clean-targets:
 models:
   finhouse:
     staging:
-      +enabled: true
+      +schema: staging
     intermediate:
-      +enabled: true
+      +schema: intermediate
     marts:
-      +enabled: true
+      +schema: marts
