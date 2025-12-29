@@ -1,4 +1,4 @@
-# Finhouse Analytics Platform
+# MicroFinance Analytics Platform
 
 ## 1. Introduction
 
@@ -18,7 +18,7 @@ The platform follows **modern analytics engineering best practices**, separating
 
 ## 2. High-Level Architecture
 
-![architecture](./superset/assets/data-architecture.svg)
+![architecture](./superset/assets/data-stack.svg)
 
 ---
 
