@@ -18,7 +18,7 @@ The platform follows **modern analytics engineering best practices**, separating
 
 ## 2. High-Level Architecture
 
-![architecture](./superset/assets/data-stack.svg)
+![architecture](./superset/assets/architecture.svg)
 
 ---
 
